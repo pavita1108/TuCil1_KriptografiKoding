@@ -6,6 +6,7 @@ def make_matrix(key):
             listrow.append(key[5 * x + y])
         matrix.append(listrow) # tambahin ke matriks
 
+    print(matrix)
     return(matrix)
 
 #  mengambil sebuah string sebagai input dan mengubahnya menjadi string yang hanya terdiri dari huruf dan angka yang diizinkan.
@@ -27,13 +28,16 @@ def make_key(key):
 
     return(text+key) 
 
+# mengubah input kapital ke huruf biasa
+def toLowerCase(text):
+    return text.lower()
+
 def filter(text):
     # hapus spasi n tanda baca
     remove_punctnspace = ''.join(x for x in text if x.isalnum()) 
     # hapus angka
     remove_number = ''.join(
-        x for x in remove_punctnspace if not x.isdigit()
-    )
+        x for x in remove_punctnspace if not x.isdigit())
 
     return(remove_number)
 
@@ -61,7 +65,7 @@ def arrange(plaintext,key):
 
         return (bigram(plaintext))
 
-# Proses pembagian dilakukan dengan cara mengambil dua karakter secara berurutan dari plaintext dan memasukkannya ke dalam list baru (bigram). Setelah seluruh dua karakter tersebut diproses, hasilnya disimpan dalam list baru (bigram_plaintext). Fungsi akan mengembalikan list bigram_plaintext yang berisi bigram-bigram dari teks masukan.
+# Proses pembagian dilakukan dengan cara mengambil dua karakter secara berurutan dari plaintext dan memasukkannya ke dalam list baru (bigram). Setelah seluruh dua karakter tersebut diproses, hasilnya disimpan dalam list baru
 def bigram(plaintext): # bbrp kelompok 2 karakter
     plaintext_bigram = []
     for x in range (int(len(plaintext)/2)):
@@ -92,3 +96,71 @@ def search(hurufpertama, hurufkedua, key):
                 hurufdua = [x, y]
 #  Setelah perulangan selesai, posisi dari kedua huruf akan dikembalikan sebagai tuple (hurufsatu, hurufdua).
     return(hurufsatu, hurufdua)
+
+# mengelompokkan setiap 2 karakter dalam ciphertext dan memisahkannya dengan spasi
+def group(ciphertext):
+    output = []
+    ciphertext = list(ciphertext)
+
+    for x in range(len(ciphertext)):
+        if x % 2 == 0 and x > 0:
+            output.append(' ')
+        output.append(ciphertext[x])
+
+    output = ''.join(output)
+    return(output)
+
+def encrypt(plaintext, key):
+    result = []
+    for i in range (int(len(plaintext)/2)):
+        x1 = 0
+        y1 = 0
+        x2 = 0
+        y2 = 0
+
+        for x in range(5):
+            for y in range(5):
+                if (plaintext[i * 2] == key[x][y]):
+                    x1 = x
+                    y1 = y
+                if (plaintext[i * 2 + 1] == key[x][y]):
+                    x2 = x
+                    y2 = y
+        if (x1 == x2 and y1 != y2):
+            result.append(key[x1][(y1 + 4)%5])
+            result.append(key[x2][(y2 + 4)%5])
+        elif (x1 != x2 and y1 == y2):
+            result.append(key[(x1 + 4)%5][y1])
+            result.append(key[(x2 + 4)%5][y2])
+        else:
+            result.append(key[x1][y2])
+            result.append(key[x2][y1])
+    return(result)
+
+def decrypt(ciphertext, key):
+    result = []
+    for i in range(int(len(ciphertext)/2)):
+        x1 = 0
+        y1 = 0
+        x2 = 0
+        y2 = 0
+
+        for x in range (5):
+            for y in range(5):
+                if (ciphertext[i * 2] == key[x][y]):
+                    x1 = x
+                    y1 = y
+                if (ciphertext[i * 2 + 1] == key[x][y]):
+                    x2 = x 
+                    y2 = y
+        if (x1 == x2 and y1 != y2):
+            result.append(key[x1][(y1 + 4)%5])
+            result.append(key[x2][(y2 + 4)%5])
+        elif (x1 != x2 and y1 == y2):
+            result.append(key[(x1 + 4)%5][y1])
+            result.append(key[(x2 + 4)%5][y2])
+        else:
+            result.append(key[x1][y2])
+            result.append(key[x2][y1])
+    return(result)
+ 
