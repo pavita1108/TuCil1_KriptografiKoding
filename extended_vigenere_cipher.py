@@ -30,7 +30,12 @@ def ex_vigenereDecode(cipher_text, keyword):
 # key = "AAA"
 # string = bin_data.decode('latin1')
 # a = ex_vigenereEncode(string, key)
-# print(' '.join(a))
-# b = ex_vigenereDecode(a, key)
+# aa = "" . join(a)
+# with open('encrypt', 'wb') as f: 
+#     f.write(aa.encode('latin1'))
+
+# bin_data = open('encrypt', 'rb').read()
+# c = bin_data.decode('latin1')
+# b = ex_vigenereDecode(c, key)
 # with open('a.pdf', 'wb') as f: 
 #     f.write(b.encode('latin1'))

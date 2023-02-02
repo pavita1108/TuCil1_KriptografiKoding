@@ -88,6 +88,8 @@ class Extended(QMainWindow):
         self.label_6.setText("Extended Viginere Cipher")
         self.exp.clicked.connect(self.Export)
         self.encrypt.clicked.connect(self.Encrypt)
+        self.decrypt.clicked.connect(self.Decrypt)
+        self.exp_2.clicked.connect(self.Export_2)
 
     def Encrypt (self) :
         output = []
@@ -99,16 +101,26 @@ class Extended(QMainWindow):
             bin_data = open(fileloc, 'rb').read()
             string = bin_data.decode('latin1')
             encode = ex_vigenereEncode(string, key)
-            decode = ex_vigenereDecode(encode, key)
         else :
             encode = ex_vigenereEncode(text,key)
-            decode = ex_vigenereDecode(encode,key)
-        output = ' '.join(encode)    
+        output = ''.join(encode)    
         self.textBrowser.setText(str(output))
-        self.textBrowser_2.setText(str(decode))
     
-    def Export (self):
+    def Decrypt (self):
+        output = []
         text = self.textEdit.toPlainText()
+        key = self.textEdit_2.toPlainText()
+        fileloc = self.textEdit_4.toPlainText()
+
+        if text == '':
+            bin_data = open(fileloc, 'rb').read()
+            string = bin_data.decode('latin1')
+            decode = ex_vigenereDecode(string, key)
+        else :
+            decode = ex_vigenereDecode(text,key)   
+        self.textBrowser_2.setText(decode)
+
+    def Export (self):
         key = self.textEdit_2.toPlainText()
         path = self.textEdit_4.toPlainText()
         bin_data = open(path, 'rb').read()
@@ -116,10 +128,22 @@ class Extended(QMainWindow):
         filetype = self.textEdit_3.toPlainText()
 
         fileName = "hasil." + filetype
-        a = ex_vigenereEncode(string, key)
-        b = ex_vigenereDecode(a, key)
+        b = ex_vigenereDecode(string, key)
         with open(fileName, 'wb') as f: 
             f.write(b.encode('latin1'))
+
+    def Export_2 (self):
+        key = self.textEdit_2.toPlainText()
+        fileloc = self.textEdit_4.toPlainText()
+
+        bin_data = open(fileloc, 'rb').read()
+        string = bin_data.decode('latin1')
+        encode = ex_vigenereEncode(string, key)
+        en = "" . join(encode)
+        with open('encrypt', 'wb') as f: 
+            f.write(en.encode('latin1'))
+
+
 
 class OneTimePad (QMainWindow):
     def __init__(self):

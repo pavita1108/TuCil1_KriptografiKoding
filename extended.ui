@@ -110,7 +110,7 @@
    <widget class="QPushButton" name="encrypt">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>180</x>
       <y>320</y>
       <width>230</width>
       <height>40</height>
@@ -327,6 +327,42 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>File Loc</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="decrypt">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>320</y>
+      <width>230</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Decrypt</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exp_2">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>450</y>
+      <width>100</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>13</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Export</string>
     </property>
    </widget>
   </widget>
