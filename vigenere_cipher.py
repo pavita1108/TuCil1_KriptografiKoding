@@ -5,8 +5,7 @@ def generateKey(string, key):
     if len(string) == len(key):
         return(key)
     else:
-        for i in range(len(string) -
-                       len(key)):
+        for i in range(len(string) - len(key)):
             key.append(key[i % len(key)])
     return("" . join(key))
 

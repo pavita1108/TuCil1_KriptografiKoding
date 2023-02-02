@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>423</width>
-    <height>278</height>
+    <width>900</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,11 +17,16 @@
    <widget class="QPushButton" name="vigenereStandard">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>171</width>
-      <height>41</height>
+      <x>60</x>
+      <y>250</y>
+      <width>361</width>
+      <height>100</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Vigenere Standard</string>
@@ -30,24 +35,34 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
-      <width>101</width>
-      <height>19</height>
+      <x>330</x>
+      <y>110</y>
+      <width>231</width>
+      <height>61</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>23</pointsize>
+     </font>
+    </property>
     <property name="text">
-     <string>Pilih Chiper : </string>
+     <string>Pilih Chiper</string>
     </property>
    </widget>
    <widget class="QPushButton" name="otp">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>150</y>
-      <width>171</width>
-      <height>41</height>
+      <x>460</x>
+      <y>410</y>
+      <width>361</width>
+      <height>100</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>One-time pad</string>
@@ -56,11 +71,16 @@
    <widget class="QPushButton" name="vigenereExt">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>80</y>
-      <width>171</width>
-      <height>41</height>
+      <x>460</x>
+      <y>250</y>
+      <width>361</width>
+      <height>100</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Vigenere Extended</string>
@@ -69,11 +89,16 @@
    <widget class="QPushButton" name="playfair">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>150</y>
-      <width>171</width>
-      <height>41</height>
+      <x>60</x>
+      <y>410</y>
+      <width>361</width>
+      <height>100</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Playfair</string>
@@ -85,7 +110,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>423</width>
+     <width>900</width>
      <height>31</height>
     </rect>
    </property>
