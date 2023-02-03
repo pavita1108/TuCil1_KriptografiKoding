@@ -6,7 +6,6 @@ def make_matrix(key):
             listrow.append(key[5 * x + y])
         matrix.append(listrow) # tambahin ke matriks
 
-    print(matrix)
     return(matrix)
 
 #  mengambil sebuah string sebagai input dan mengubahnya menjadi string yang hanya terdiri dari huruf dan angka yang diizinkan.
@@ -85,17 +84,17 @@ def get(hurufsatu, hurufdua, key):
                 return(key[x][y])
 
 # mencari posisi dari dua huruf dalam matriks kunci
-def search(hurufpertama, hurufkedua, key):
-    hurufsatu, hurufdua = [0,0],[0,0]
-    for x in range(5):
-        for y in range(5):
-            # Jika huruf ditemukan, posisi dari huruf tersebut akan disimpan dalam variabel
-            if key[x][y] == hurufpertama:
-                hurufsatu = [x, y]
-            elif key[x][y] == hurufkedua:
-                hurufdua = [x, y]
+# def search(hurufpertama, hurufkedua, key):
+#     hurufsatu, hurufdua = [0,0],[0,0]
+#     for x in range(5):
+#         for y in range(5):
+#             # Jika huruf ditemukan, posisi dari huruf tersebut akan disimpan dalam variabel
+#             if key[x][y] == hurufpertama:
+#                 hurufsatu = [x, y]
+#             elif key[x][y] == hurufkedua:
+#                 hurufdua = [x, y]
 #  Setelah perulangan selesai, posisi dari kedua huruf akan dikembalikan sebagai tuple (hurufsatu, hurufdua).
-    return(hurufsatu, hurufdua)
+    # return(hurufsatu, hurufdua)
 
 # mengelompokkan setiap 2 karakter dalam ciphertext dan memisahkannya dengan spasi
 def group(ciphertext):
@@ -110,57 +109,189 @@ def group(ciphertext):
     output = ''.join(output)
     return(output)
 
-def encrypt(plaintext, key):
-    result = []
-    for i in range (int(len(plaintext)/2)):
-        x1 = 0
-        y1 = 0
-        x2 = 0
-        y2 = 0
+# def encrypt(plaintext, key):
+#     result = []
+#     for i in range (int(len(plaintext)/2)):
+#         a = search(plaintext[i][0], plaintext[i][1], key)
+   
+#         x1 = a[0][1]
+#         y1 = a[0][0]
+#         x2 = a[1][1]
+#         y2 = a[1][0]
 
-        for x in range(5):
-            for y in range(5):
-                if (plaintext[i * 2] == key[x][y]):
-                    x1 = x
-                    y1 = y
-                if (plaintext[i * 2 + 1] == key[x][y]):
-                    x2 = x
-                    y2 = y
-        if (x1 == x2 and y1 != y2):
-            result.append(key[x1][(y1 + 4)%5])
-            result.append(key[x2][(y2 + 4)%5])
-        elif (x1 != x2 and y1 == y2):
-            result.append(key[(x1 + 4)%5][y1])
-            result.append(key[(x2 + 4)%5][y2])
-        else:
-            result.append(key[x1][y2])
-            result.append(key[x2][y1])
-    return(result)
+#         # for x in range(5):
+#         #     for y in range(5):
+#                 # print(plaintext[i*2], key[x][y])
+#                 # if (plaintext[i * 2] == key[x][y]):
+#                 #     x1 = x
+#                 #     y1 = y
+#                 # if (plaintext[i * 2 + 1] == key[x][y]):
+#                 #     x2 = x
+#                 #     y2 = y
+#         if (y1 == y2):
+#             x1_2 = (x1+1)%5
+#             x2_2 = (x2+1)%5
+#             result.append(get(y1, x1_2, key))
+#             result.append(get(y2, x2_2, key))
+#         elif (x1 == x2):
+#             y1_2 = (y1+1)%5
+#             y2_2 = (y2+1)%5
+#             result.append(get(x1, y1_2, key))
+#             result.append(get(x2, y2_2, key))
+#         else:
+#             result.append(get(x1, y2, key))
+#             result.append(get(y1, x2, key))
+#     return(result)
 
-def decrypt(ciphertext, key):
-    result = []
-    for i in range(int(len(ciphertext)/2)):
-        x1 = 0
-        y1 = 0
-        x2 = 0
-        y2 = 0
+# def decrypt(ciphertext, key):
+#     result = []
+#     # print('a')
+#     for i in range (len(ciphertext)):
+#         # print(ciphertext)
+#         a = search(ciphertext[i][0], ciphertext[i][1], key)
+#         # print('c')
+#         x1 = a[0][1]
+#         y1 = a[0][0]
+#         x2 = a[1][1]
+#         y2 = a[1][0]
 
-        for x in range (5):
-            for y in range(5):
-                if (ciphertext[i * 2] == key[x][y]):
-                    x1 = x
-                    y1 = y
-                if (ciphertext[i * 2 + 1] == key[x][y]):
-                    x2 = x 
-                    y2 = y
-        if (x1 == x2 and y1 != y2):
-            result.append(key[x1][(y1 + 4)%5])
-            result.append(key[x2][(y2 + 4)%5])
-        elif (x1 != x2 and y1 == y2):
-            result.append(key[(x1 + 4)%5][y1])
-            result.append(key[(x2 + 4)%5][y2])
-        else:
-            result.append(key[x1][y2])
-            result.append(key[x2][y1])
+#         if (y1 == y2):
+#             x1_2 = (x1-1)%5
+#             x2_2 = (x2-1)%5
+#             result.append(get(y1, x1_2, key))
+#             result.append(get(y2, x2_2, key))
+#         elif (x1 == x2):
+#             y1_2 = (y1-1)%5
+#             y2_2 = (y2-1)%5
+#             result.append(get(x1, y1_2, key))
+#             result.append(get(x2, y2_2, key))
+#         else:
+#             result.append(get(x1, y2, key))
+#             result.append(get(y1, x2, key))
+    
+#     result = ''.join(result)
+
+    for letter in result:
+        if letter == 'x':
+            result = result.replace('x', '')
+    
     return(result)
  
+def search(mat, element):
+    for i in range(5):
+        for j in range(5):
+            if(mat[i][j] == element):
+                return i, j
+def encrypt_RowRule(matr, e1r, e1c, e2r, e2c):
+    char1 = ''
+    if e1c == 4:
+        char1 = matr[e1r][0]
+    else:
+        char1 = matr[e1r][e1c+1]
+ 
+    char2 = ''
+    if e2c == 4:
+        char2 = matr[e2r][0]
+    else:
+        char2 = matr[e2r][e2c+1]
+ 
+    return char1, char2
+
+def encrypt_ColumnRule(matr, e1r, e1c, e2r, e2c):
+    char1 = ''
+    if e1r == 4:
+        char1 = matr[0][e1c]
+    else:
+        char1 = matr[e1r+1][e1c]
+ 
+    char2 = ''
+    if e2r == 4:
+        char2 = matr[0][e2c]
+    else:
+        char2 = matr[e2r+1][e2c]
+ 
+    return char1, char2
+
+def encrypt_RectangleRule(matr, e1r, e1c, e2r, e2c):
+    char1 = ''
+    char1 = matr[e1r][e2c]
+ 
+    char2 = ''
+    char2 = matr[e2r][e1c]
+ 
+    return char1, char2
+
+def encrypt(Matrix, plainList):
+    CipherText = []
+    ele1_y =0
+    ele1_x = 0
+    ele2_x =0
+    ele2_y =0
+    for i in range(0, len(plainList)):
+        for i in range(5):
+            for j in range(5):
+                if(Matrix[i][j] == plainList[i][0]):
+                    ele1_x = i
+                    ele1_y = j
+        for i in range(5):
+            for j in range(5):
+                if(Matrix[i][j] == plainList[i][0]):
+                    ele2_x = i
+                    ele2_y = j
+        c1 = 0
+        c2 = 0
+ 
+        if ele1_x == ele2_x:
+            c1, c2 = encrypt_RowRule(Matrix, ele1_x, ele1_y, ele2_x, ele2_y)
+            # Get 2 letter cipherText
+        elif ele1_y == ele2_y:
+            c1, c2 = encrypt_ColumnRule(Matrix, ele1_x, ele1_y, ele2_x, ele2_y)
+        else:
+            c1, c2 = encrypt_RectangleRule(
+                Matrix, ele1_x, ele1_y, ele2_x, ele2_y)
+ 
+        cipher = c1 + c2
+        CipherText.append(cipher)
+    return CipherText
+
+
+
+plaintext = input("Enter your plaintext: ")
+while len(plaintext) == 0:
+    print("Output method cannot be empty!")
+    plaintext = input("Enter your plaintext: ")
+
+key = input("Enter your key: ")
+while len(key) == 0:
+    print("Output method cannot be empty!")
+    key = input("Enter your key: ")
+
+output = input("Choose your output method (default/grouped): ")
+while len(output) == 0:
+    print("Output method cannot be empty!")
+    output = input("Choose your output method (default/grouped): ")
+while output != 'default' and output != 'grouped':
+    print("Please choose default or grouped method!")
+    output = input("Choose your output method (default/grouped): ")
+
+filtered_plaintext = filter(plaintext)
+filtered_key = filter(key)
+
+full_key = make_key(filtered_key)
+matrix_key = make_matrix(full_key)
+print(matrix_key)
+arranged_plaintext = arrange(filtered_plaintext, matrix_key)
+print(arranged_plaintext)
+print (filtered_plaintext)
+encrypted_text = encrypt(matrix_key,filtered_plaintext)
+print(encrypted_text)
+grouped_encrypted_text = group(encrypted_text)
+# decrypted_text = decrypt(encrypted_text, matrix_key)
+
+
+if output == 'default':
+    print("Ciphertext:", encrypted_text)
+else:
+    print("Ciphertext:", grouped_encrypted_text)
+
+# print("Decrypted ciphertext:", decrypted_text)
