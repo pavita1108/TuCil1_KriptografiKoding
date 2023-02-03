@@ -1,3 +1,4 @@
+from vigenere_cipher import cleanString
 def make_matrix(key):
     matrix = [] # list kosong menyimpan hasil matriks
     for x in range(5): # baris
@@ -33,8 +34,8 @@ def filter(text):
     # hapus angka
     remove_number = ''.join(
         x for x in remove_punctnspace if not x.isdigit())
-
-    return(remove_number)
+    
+    return(remove_number.replace(" ", ""))
 
 
 def encrypt_RowRule(matr, a, b, c, d):
@@ -122,8 +123,9 @@ def search(mat, element):
                 return i, j
     return []
 
-def decrypt(Matrix, plainList):
+def playfairDecode(Matrix, plainList):
 	CipherText = []
+
 	for i in range(0, len(plainList)):
 		c1 = 0
 		c2 = 0
@@ -143,7 +145,7 @@ def decrypt(Matrix, plainList):
 		CipherText.append(cipher)
 	return CipherText
 
-def encryptByPlayfairCipher(Matrix, plainList):
+def playfairEncode(Matrix, plainList):
 	CipherText = []
 	for i in range(0, len(plainList)):
 		c1 = 0
@@ -177,14 +179,16 @@ def bigram(text):
 
 
 
-# text = bigram('andreana')
+# text = cleanString(('halo halo bandung sudah lama ti'))
+# text = bigram(text)
+
 # print(text)
 # key  = 'ss'
 # filtered_key = filter(key)
 # full_key = make_key(filtered_key)
 # matrix_key = make_matrix(full_key)
-# a = encryptByPlayfairCipher(matrix_key,text)
+# a = playfairEncode(matrix_key,text)
 # c = ''.join(a)
 # print(a)
-# b = decrypt(matrix_key,a)
+# b = playfairDecode(matrix_key,a)
 # print(b)

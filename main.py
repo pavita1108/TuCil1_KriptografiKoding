@@ -6,6 +6,7 @@ from PyQt5.QtGui import QPixmap
 from vigenere_cipher import *
 from extended_vigenere_cipher import *
 from otp import *
+from playfair import *
 
 class Menu(QMainWindow):
     def __init__(self):
@@ -13,7 +14,7 @@ class Menu(QMainWindow):
         loadUi("main.ui", self)
         self.vigenereStandard.clicked.connect(self.Viginere)
         self.vigenereExt.clicked.connect(self.Extended)
-        # self.playfair.clicked.connect(self.Playfair)
+        self.playfair.clicked.connect(self.Playfair)
         self.otp.clicked.connect(self.OneTimePad)
     def Viginere(self):
         viginere = Viginere()
@@ -25,10 +26,10 @@ class Menu(QMainWindow):
         widget.addWidget(extended)
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
-    # def Playfair(self):
-    #     playfair = Playfair()
-    #     widget.addWidget(playfair)
-    #     widget.setCurrentIndex(widget.currentIndex() + 1)
+    def Playfair(self):
+        playfair = Playfair()
+        widget.addWidget(playfair)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def OneTimePad(self):
         onetimepad = OneTimePad()
@@ -39,7 +40,7 @@ class Menu(QMainWindow):
 class Viginere(QMainWindow):
     def __init__(self):
         super(Viginere, self).__init__()
-        loadUi("cipher.ui", self)
+        loadUi("template.ui", self)
         self.label_6.setText("Viginere Cipher")
         self.woSpace.clicked.connect(self.WOSpace)
         self.go5letter.clicked.connect(self.Grouped)
@@ -54,7 +55,7 @@ class Viginere(QMainWindow):
     def Export(self):
         text = self.textEdit.toPlainText()
         key = self.textEdit_2.toPlainText()
-        cipher = vigenereEncode(text,key)
+        cipher = playfairEncode(text,key)
         txt = open('ciphertext.txt', 'w')
         cipher = txt.write(cipher)
         txt.close()
@@ -143,8 +144,6 @@ class Extended(QMainWindow):
         with open('encrypt', 'wb') as f: 
             f.write(en.encode('latin1'))
 
-
-
 class OneTimePad (QMainWindow):
     def __init__(self):
         super(OneTimePad, self).__init__()
@@ -197,6 +196,74 @@ class OneTimePad (QMainWindow):
         with open('text.txt', 'r') as file:
             lines = file.read().rstrip()
         self.textEdit.setPlainText(str(lines))
+
+class Playfair (QMainWindow):
+    def __init__(self):
+        super(Playfair, self).__init__()
+        loadUi("template.ui", self)
+        self.label_6.setText("Playfair Cipher")
+        self.woSpace.clicked.connect(self.WOSpace)
+        self.go5letter.clicked.connect(self.Grouped)
+        self.imp.clicked.connect(self.Import)
+        self.exp.clicked.connect(self.Export)
+
+    def Import(self):
+        with open('text.txt', 'r') as file:
+            lines = file.read().rstrip()
+        self.textEdit.setPlainText(str(lines))
+        
+    def Export(self):
+        text = cleanString(self.textEdit.toPlainText())
+        key = self.textEdit_2.toPlainText()
+
+        filtered_key = filter(key)
+        full_key = make_key(filtered_key)
+        matrix_key = make_matrix(full_key)
+        text = bigram(text)
+
+        cipher = playfairEncode(matrix_key,text)
+        cipher = ''.join(cipher)
+
+        txt = open('ciphertext.txt', 'w')
+        cipher = txt.write(cipher)
+        txt.close()
+
+    def WOSpace(self):
+        text = cleanString(self.textEdit.toPlainText())
+        key = self.textEdit_2.toPlainText()
+
+        filtered_key = filter(key)
+        full_key = make_key(filtered_key)
+        matrix_key = make_matrix(full_key)
+        text = bigram(text)
+
+        encode = playfairEncode(matrix_key,text)
+        decode = playfairDecode(matrix_key,encode)
+        
+        self.textBrowser.setText(''.join(encode))
+        self.textBrowser_2.setText(''.join(decode))
+
+    def Grouped (self):
+        output = []
+        text = cleanString(self.textEdit.toPlainText())
+        key = self.textEdit_2.toPlainText()
+
+        filtered_key = filter(key)
+        full_key = make_key(filtered_key)
+        matrix_key = make_matrix(full_key)
+        text = bigram(text)
+
+        encode = playfairEncode(matrix_key,text)
+        decode = playfairDecode(matrix_key,encode)
+        encode = ''.join(encode)
+        decode = ''.join(decode)
+        for i in range(len(encode)):
+            if i % 5 == 0 and i > 0:
+                output.append('  ')
+            output.append(encode[i])
+        output = ''.join(output)
+        self.textBrowser.setText(output)
+        self.textBrowser_2.setText(decode)
 
 
 app = QApplication(sys.argv)
